@@ -12,7 +12,7 @@ An end-to-end information-retrieval project that converts public ML portfolio do
 
 **Status:** Portfolio-ready and deployed  
 **Live demo:** [Open the Browser-Based Document Semantic Search Engine](https://bhanupatnam.github.io/Browser-Based-Document-Semantic-Search/)  
-**Primary stack:** Python · Sentence Transformers · all-MiniLM-L6-v2 · Transformers.js · NumPy · scikit-learn · JavaScript · HTML · CSS · GitHub Actions · GitHub Pages
+**Primary stack:** Python · Sentence Transformers · all-MiniLM-L6-v2 · NumPy · scikit-learn · Streamlit · GitHub Actions · GitHub Pages
 
 ---
 
@@ -550,29 +550,21 @@ Embedding, ranking, and total latency are displayed
 
 ---
 
-## Run the Browser Demo Locally
+## Run the Application with Streamlit
 
-### 1. Open the project
-
-```bash
-cd transformer-projects/07-document-semantic-search-sentence-bert
-```
-
-### 2. Start a local web server
+### 1. Install dependencies
 
 ```bash
-python -m http.server 8000 --directory web
+pip install -r requirements.txt
 ```
 
-### 3. Open the application
+### 2. Launch Streamlit
 
-```text
-http://127.0.0.1:8000/
+```bash
+streamlit run app.py
 ```
 
-A local HTTP server is required because browsers generally block JSON and JavaScript module loading from direct `file://` paths.
-
-Keep the terminal window open while using the local application. Stop the server with `Ctrl + C`.
+The interactive application will automatically start and open in your browser at `http://localhost:8501`.
 
 ---
 
@@ -636,8 +628,7 @@ python scripts/export_browser_data.py
 From the repository root:
 
 ```bash
-python 07-document-semantic-search-sentence-bert/scripts/sync_docs_site.py
-```
+python 07-document-semantic-search-sentence-bert/scripts/```
 
 ### 9. Verify the deployment mirror
 
@@ -753,9 +744,7 @@ transformer-projects/
 │   │   ├── export_browser_data.py
 │   │   ├── evaluate_search.py
 │   │   ├── benchmark_latency.py
-│   │   ├── run_local_web_server.py
-│   │   └── sync_docs_site.py
-│   ├── src/
+│   │   ├── │   │   └── │   ├── src/
 │   │   ├── document_loader.py
 │   │   ├── text_preprocessing.py
 │   │   ├── document_chunking.py

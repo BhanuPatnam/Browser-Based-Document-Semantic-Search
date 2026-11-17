@@ -1,0 +1,15 @@
+{
+  "name": "document-semantic-search-sentence-bert",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static browser-based Sentence-BERT semantic search demo for GitHub Pages.",
+  "scripts": {
+    "serve": "http-server web -p 8000 -c-1",
+    "check": "node --check web/app.js && node --check web/search.js && node --check web/embeddings.js",
+    "sync-docs": "python scripts/sync_docs_site.py",
+    "check-docs": "python scripts/sync_docs_site.py --check"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

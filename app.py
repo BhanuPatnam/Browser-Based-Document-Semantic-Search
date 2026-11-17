@@ -392,3 +392,4 @@ with tab_about:
         - **Upstream Architecture & Foundation:** Based on the open-source document semantic search architecture originally authored by **Anmol Tripathi** under the MIT License.
         """
     )
+

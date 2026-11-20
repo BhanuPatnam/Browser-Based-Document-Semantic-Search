@@ -49,7 +49,15 @@ def split_text(text: str, chunk_size_words: int = 180, overlap_words: int = 40) 
         if current and current_words + len(sentence_words) > chunk_size_words:
             completed = " ".join(current)
             chunks.append(completed)
-            overlap = completed.split()[-overlap_words:] if overlap_words else []
+            # Keep the overlap only when it still leaves room for the next
+            # complete sentence.  Otherwise a chunk can silently exceed the
+            # configured size (overlap + sentence length).
+            overlap_capacity = chunk_size_words - len(sentence_words)
+            overlap = (
+                completed.split()[-min(overlap_words, overlap_capacity):]
+                if overlap_words and overlap_capacity > 0
+                else []
+            )
             current = overlap + [sentence]
             current_words = len(overlap) + len(sentence_words)
         else:

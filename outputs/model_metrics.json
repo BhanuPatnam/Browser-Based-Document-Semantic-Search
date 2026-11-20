@@ -1,10 +1,23 @@
 {
+  "method": "Sentence-BERT Dense",
   "query_count": 8,
   "mrr": 0.9375,
-  "recall_at_1": 0.875,
-  "recall_at_3": 1.0,
-  "recall_at_5": 1.0,
+  "precision_at_1": 0.875,
+  "recall_at_1": 0.6979166666666666,
+  "hit_at_1": 0.875,
+  "ndcg_at_1": 0.875,
+  "precision_at_3": 0.5833333333333333,
+  "recall_at_3": 0.9375,
+  "hit_at_3": 1.0,
+  "ndcg_at_3": 0.916855980325699,
+  "precision_at_5": 0.47500000000000003,
+  "recall_at_5": 0.96875,
+  "hit_at_5": 1.0,
+  "ndcg_at_5": 0.920939930848427,
+  "precision_at_10": 0.3125,
   "recall_at_10": 1.0,
+  "hit_at_10": 1.0,
+  "ndcg_at_10": 0.9991452471853951,
   "per_query": [
     {
       "query": "Which projects are deployed on Hugging Face Spaces?",
@@ -21,10 +34,22 @@
         "06-multimodal-visual-question-answering-transformer",
         "07-document-semantic-search-sentence-bert"
       ],
-      "recall_at_1": 1.0,
-      "recall_at_3": 1.0,
-      "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "precision_at_1": 1.0,
+      "recall_at_1": 0.25,
+      "hit_at_1": 1.0,
+      "ndcg_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "recall_at_3": 0.5,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 0.7039180890341347,
+      "precision_at_5": 0.6,
+      "recall_at_5": 0.75,
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 0.7365896932159578,
+      "precision_at_10": 0.5,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 0.9931619774831606
     },
     {
       "query": "Find projects using U-Net for image segmentation.",
@@ -41,10 +66,22 @@
         "07-document-semantic-search-sentence-bert",
         "cnn-resnet-browser-deployment"
       ],
+      "precision_at_1": 1.0,
       "recall_at_1": 1.0,
+      "hit_at_1": 1.0,
+      "ndcg_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
       "recall_at_3": 1.0,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_5": 0.4,
       "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_10": 0.2,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 1.0
     },
     {
       "query": "Which project uses a cross-encoder to rerank bi-encoder candidates?",
@@ -61,10 +98,22 @@
         "cnn-resnet-browser-deployment",
         "02-neural-machine-translation-transformer"
       ],
+      "precision_at_1": 1.0,
       "recall_at_1": 1.0,
+      "hit_at_1": 1.0,
+      "ndcg_at_1": 1.0,
+      "precision_at_3": 1.0,
       "recall_at_3": 1.0,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_5": 0.6,
       "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_10": 0.3,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 1.0
     },
     {
       "query": "Where did I deploy a browser model with GitHub Pages?",
@@ -81,10 +130,22 @@
         "06-multimodal-visual-question-answering-transformer",
         "05-instruction-tuned-domain-llm"
       ],
-      "recall_at_1": 1.0,
+      "precision_at_1": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "hit_at_1": 1.0,
+      "ndcg_at_1": 1.0,
+      "precision_at_3": 1.0,
       "recall_at_3": 1.0,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_5": 0.8,
       "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_10": 0.5,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 1.0
     },
     {
       "query": "Which project evaluates summarization with BERTScore?",
@@ -101,10 +162,22 @@
         "05-instruction-tuned-domain-llm",
         "quality-analytics-semantic-search-use-case"
       ],
+      "precision_at_1": 1.0,
       "recall_at_1": 1.0,
+      "hit_at_1": 1.0,
+      "ndcg_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
       "recall_at_3": 1.0,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_5": 0.4,
       "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_10": 0.2,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 1.0
     },
     {
       "query": "How can semantic search support quality analytics and root-cause knowledge?",
@@ -121,10 +194,22 @@
         "07-document-semantic-search-sentence-bert",
         "quality-analytics-semantic-search-use-case"
       ],
+      "precision_at_1": 1.0,
       "recall_at_1": 1.0,
+      "hit_at_1": 1.0,
+      "ndcg_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
       "recall_at_3": 1.0,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_5": 0.4,
       "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_10": 0.3,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 1.0
     },
     {
       "query": "Which project uses a bidirectional LSTM with attention?",
@@ -141,10 +226,22 @@
         "03-cross-encoder-bi-encoder-ranking-system",
         "01-abstractive-text-summarization-transformer"
       ],
+      "precision_at_1": 1.0,
       "recall_at_1": 1.0,
+      "hit_at_1": 1.0,
+      "ndcg_at_1": 1.0,
+      "precision_at_3": 0.3333333333333333,
       "recall_at_3": 1.0,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_5": 0.4,
       "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_10": 0.2,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 1.0
     },
     {
       "query": "What metrics evaluate this document semantic search engine?",
@@ -161,13 +258,22 @@
         "07-document-semantic-search-sentence-bert",
         "02-neural-machine-translation-transformer"
       ],
+      "precision_at_1": 0.0,
       "recall_at_1": 0.0,
+      "hit_at_1": 0.0,
+      "ndcg_at_1": 0.0,
+      "precision_at_3": 0.3333333333333333,
       "recall_at_3": 1.0,
+      "hit_at_3": 1.0,
+      "ndcg_at_3": 0.6309297535714575,
+      "precision_at_5": 0.2,
       "recall_at_5": 1.0,
-      "recall_at_10": 1.0
+      "hit_at_5": 1.0,
+      "ndcg_at_5": 0.6309297535714575,
+      "precision_at_10": 0.3,
+      "recall_at_10": 1.0,
+      "hit_at_10": 1.0,
+      "ndcg_at_10": 1.0
     }
-  ],
-  "status": "completed",
-  "model_name": "sentence-transformers/all-MiniLM-L6-v2",
-  "generated_at_utc": "2026-11-17T15:46:23.575230+00:00"
+  ]
 }

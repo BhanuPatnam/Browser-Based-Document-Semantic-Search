@@ -1,0 +1,49 @@
+[
+  {
+    "query": "What metrics evaluate this document semantic search engine?",
+    "expected_document_ids": [
+      "07-document-semantic-search-sentence-bert"
+    ],
+    "actual_first_relevant_rank": 2,
+    "found_in_top_k": true,
+    "top_retrieved_documents": [
+      {
+        "rank": 1,
+        "document_id": "03-cross-encoder-bi-encoder-ranking-system",
+        "project_name": "Cross-Encoder and Bi-Encoder Ranking System",
+        "section_title": "Portfolio value",
+        "similarity_score": 0.6149
+      },
+      {
+        "rank": 2,
+        "document_id": "07-document-semantic-search-sentence-bert",
+        "project_name": "Document Semantic Search with Sentence-BERT",
+        "section_title": "Objective",
+        "similarity_score": 0.594
+      },
+      {
+        "rank": 3,
+        "document_id": "quality-analytics-semantic-search-use-case",
+        "project_name": "Quality Analytics Knowledge Search Use Case",
+        "section_title": "Business relevance",
+        "similarity_score": 0.4971
+      },
+      {
+        "rank": 4,
+        "document_id": "03-cross-encoder-bi-encoder-ranking-system",
+        "project_name": "Cross-Encoder and Bi-Encoder Ranking System",
+        "section_title": "Objective",
+        "similarity_score": 0.4909
+      },
+      {
+        "rank": 5,
+        "document_id": "quality-analytics-semantic-search-use-case",
+        "project_name": "Quality Analytics Knowledge Search Use Case",
+        "section_title": "RAG connection",
+        "similarity_score": 0.4892
+      }
+    ],
+    "probable_cause": "Semantic competition on evaluation terminology: Project 03 features dense discussions of evaluation metrics (MRR, nDCG, Precision@K, Cross-Encoder reranking scores), which causes the bi-encoder to assign it high cosine similarity alongside Project 07.",
+    "suggested_improvement": "Implement two-stage Cross-Encoder reranking to resolve fine-grained distinction between project targets, or incorporate project-specific lexical filters."
+  }
+]

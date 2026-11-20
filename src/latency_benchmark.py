@@ -13,6 +13,12 @@ def benchmark_queries(
     top_k_values: tuple[int, ...] = (3, 5, 10),
     repeats: int = 3,
 ) -> dict:
+    if not queries:
+        raise ValueError("At least one query is required")
+    if not top_k_values or any(top_k <= 0 for top_k in top_k_values):
+        raise ValueError("top_k_values must contain positive values")
+    if repeats <= 0:
+        raise ValueError("repeats must be positive")
     rows = []
     for top_k in top_k_values:
         timings = []

@@ -1,5 +1,6 @@
 # Semantic & Hybrid Information Retrieval System with Sentence-BERT & Cross-Encoder
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://hybrid-semantic-information-retrieval-system.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/)
 [![Sentence Transformers](https://img.shields.io/badge/Sentence%20Transformers-all--MiniLM--L6--v2-fbbf24.svg)](https://www.sbert.net/)
 [![Cross-Encoder](https://img.shields.io/badge/Cross--Encoder-ms--marco--MiniLM--L--6--v2-orange.svg)](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2)
@@ -7,6 +8,8 @@
 [![Streamlit](https://img.shields.io/badge/UI-Streamlit%20Interactive-ff4b4b.svg)](https://streamlit.io/)
 [![Tests](https://img.shields.io/badge/Unit%20Tests-36%20Passed-brightgreen.svg)](#test-suite--reproducibility)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+> 🚀 **Live Interactive Demo:** [https://hybrid-semantic-information-retrieval-system.streamlit.app/](https://hybrid-semantic-information-retrieval-system.streamlit.app/)
 
 An end-to-end **Natural Language Processing (NLP)** and **Information Retrieval (IR)** project demonstrating dense vector search, lexical baselines (BM25, TF-IDF), convex hybrid fusion, section-aware chunking experiments, query expansion, and two-stage neural reranking over technical documentation.
 
@@ -206,7 +209,7 @@ From [outputs/error_analysis.md](outputs/error_analysis.md):
 
 ## Streamlit Interactive Web Application
 
-The interactive web UI ([app.py](app.py)) provides:
+The interactive web UI ([app.py](app.py)) is deployed live at **[https://hybrid-semantic-information-retrieval-system.streamlit.app/](https://hybrid-semantic-information-retrieval-system.streamlit.app/)** and provides:
 - **Retrieval Method Selector**: Toggle between TF-IDF, BM25, Sentence-BERT, Hybrid, and Cross-Encoder Reranking in real-time.
 - **Hybrid $\alpha$ Weight Slider**: Adjust the balance between BM25 and Dense retrieval on the fly.
 - **Query Expansion Toggle**: Inspect original query vs. expanded domain synonyms.

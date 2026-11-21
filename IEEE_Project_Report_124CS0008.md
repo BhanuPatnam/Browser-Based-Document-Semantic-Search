@@ -3,6 +3,8 @@
 **P. Bhanu Prakash**  
 *Roll No: 124CS0008*  
 *Department of Computer Science and Engineering*  
+*Project Repository:* `https://github.com/BhanuPatnam/Browser-Based-Document-Semantic-Search`  
+*Live Cloud Demonstration:* `https://hybrid-semantic-information-retrieval-system.streamlit.app/`  
 
 ---
 

@@ -3,7 +3,8 @@
 **P. Bhanu Prakash**  
 *Roll No: 124CS0008*  
 *Department of Computer Science and Engineering*  
-*Project Repository:* `https://github.com/BhanuPatnam/Browser-Based-Document-Semantic-Search`
+*Project Repository:* `https://github.com/BhanuPatnam/Browser-Based-Document-Semantic-Search`  
+*Live Interactive Deployment:* `https://hybrid-semantic-information-retrieval-system.streamlit.app/`
 
 ---
 
@@ -378,7 +379,7 @@ From `outputs/error_analysis.md`:
 
 ## 9. Streamlit Interactive Application Architecture
 
-The system is deployed via [app.py](file:///Users/patnambhanuprakash/Desktop/NLP_Project/app.py) with five interactive modules:
+The system is deployed live at **[https://hybrid-semantic-information-retrieval-system.streamlit.app/](https://hybrid-semantic-information-retrieval-system.streamlit.app/)** and runs locally via [app.py](file:///Users/patnambhanuprakash/Desktop/NLP_Project/app.py) with five interactive modules:
 1. **🔎 Search & Retrieval**: Dropdown selector for all five retrieval paradigms, an $\alpha$ weight slider for hybrid tuning, query expansion toggles, and formatted result cards.
 2. **📊 Model Comparison & IR Metrics**: Comparative tables, metric bar charts, and a live multi-model benchmark runner.
 3. **🔬 Chunking Experiments & Errors**: Interactive table of the 27-row factorial chunking grid and diagnostic error cards.

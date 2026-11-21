@@ -5,7 +5,8 @@
       "01-abstractive-text-summarization-transformer",
       "02-neural-machine-translation-transformer",
       "04-long-document-question-answering-longformer",
-      "06-multimodal-visual-question-answering-transformer"
+      "06-multimodal-visual-question-answering-transformer",
+      "08-named-entity-recognition-spacy-transformers"
     ],
     "relevant_chunk_ids": [],
     "notes": "Relevant when a passage explicitly discusses a Hugging Face Spaces deployment."
@@ -67,5 +68,53 @@
     ],
     "relevant_chunk_ids": [],
     "notes": "Relevant when Recall@K, MRR, cosine similarity, or latency is discussed."
+  },
+  {
+    "query": "Which project extracts biomedical and technical entities using fine-tuned RoBERTa?",
+    "relevant_document_ids": [
+      "08-named-entity-recognition-spacy-transformers"
+    ],
+    "relevant_chunk_ids": [],
+    "notes": "Relevant when token classification, CoNLL datasets, or NER evaluation is discussed."
+  },
+  {
+    "query": "How does the enterprise RAG architecture mitigate hallucination and track citations?",
+    "relevant_document_ids": [
+      "09-retrieval-augmented-generation-langchain-rag"
+    ],
+    "relevant_chunk_ids": [],
+    "notes": "Relevant when RAG, Ragas, TruLens, faithfulness, or citation provenance is described."
+  },
+  {
+    "query": "Which model handles speech-to-text recognition in noisy industrial environments?",
+    "relevant_document_ids": [
+      "10-speech-recognition-whisper-voice-assistant"
+    ],
+    "relevant_chunk_ids": [],
+    "notes": "Relevant when Whisper, ASR, WER, or acoustic feature extraction is discussed."
+  },
+  {
+    "query": "How are technical incident postmortems structured into knowledge graphs for root-cause analysis?",
+    "relevant_document_ids": [
+      "11-knowledge-graph-entity-linking-neo4j"
+    ],
+    "relevant_chunk_ids": [],
+    "notes": "Relevant when Neo4j, triple extraction, GraphRAG, or causal chains are described."
+  },
+  {
+    "query": "What tools detect embedding drift and monitor latency in production NLP models?",
+    "relevant_document_ids": [
+      "12-mlops-model-monitoring-evidently-prometheus"
+    ],
+    "relevant_chunk_ids": [],
+    "notes": "Relevant when Evidently AI, Prometheus, Grafana, PSI, or MLOps drift detection is discussed."
+  },
+  {
+    "query": "Which project optimizes LLM memory using QLoRA and 4-bit NormalFloat quantization?",
+    "relevant_document_ids": [
+      "13-parameter-efficient-peft-qlora-quantization"
+    ],
+    "relevant_chunk_ids": [],
+    "notes": "Relevant when QLoRA, NF4, PEFT, bitsandbytes, or vLLM PagedAttention is described."
   }
 ]

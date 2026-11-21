@@ -181,15 +181,15 @@ Query normalization strips terminal query punctuation while preserving internal 
 ## 4. Empirical Evaluation & Benchmark Results
 
 ### 4.1 Comparative Model Benchmark Across Five Paradigms
-The system was evaluated against 8 technical ground-truth queries over the 34-chunk corpus. The empirical results from `outputs/retrieval_model_comparison.csv` are presented below:
+The system was evaluated against 14 technical ground-truth queries over the expanded 18-document, 52-chunk technical corpus. The empirical results from `outputs/retrieval_model_comparison.csv` are presented below:
 
 | Retrieval Method | MRR | Recall@1 | Recall@3 | Recall@5 | Precision@1 | Precision@3 | Precision@5 | nDCG@3 | nDCG@5 | nDCG@10 |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **TF-IDF (Lexical)** | 0.8750 | 0.6562 | 0.8958 | 0.9688 | 0.7500 | 0.5000 | 0.3750 | 0.8582 | 0.9124 | 0.9539 |
-| **BM25 (Lexical)** | 0.8750 | 0.5729 | 0.8646 | 0.9688 | 0.7500 | 0.4583 | 0.3500 | 0.8505 | 0.9058 | 0.9539 |
-| **Sentence-BERT Dense** | 0.9375 | 0.6979 | 0.9375 | 0.9688 | 0.8750 | 0.5833 | 0.4750 | 0.9169 | 0.9209 | 0.9991 |
-| **Hybrid (BM25 + Dense, $\alpha=0.5$)** | **1.0000** | **0.8229** | 0.9062 | 0.9688 | **1.0000** | 0.5000 | 0.4000 | 0.9337 | 0.9637 | 0.9952 |
-| **Dense + Cross-Encoder Rerank** | 0.9375 | 0.7917 | **0.9375** | **1.0000** | 0.8750 | **0.5833** | **0.5000** | **0.9413** | **0.9701** | 0.9842 |
+| **TF-IDF (Lexical)** | 0.9286 | 0.8000 | 0.9333 | 0.9714 | 0.8571 | 0.5000 | 0.3429 | 0.9234 | 0.9460 | 0.9627 |
+| **BM25 (Lexical)** | 0.9643 | 0.8238 | 0.9190 | 0.9714 | 0.9286 | 0.5000 | 0.3571 | 0.9146 | 0.9395 | 0.9629 |
+| **Sentence-BERT Dense** | 0.9643 | 0.8238 | 0.9571 | 0.9714 | 0.9286 | 0.6905 | 0.4857 | 0.9525 | 0.9479 | 0.9877 |
+| **Hybrid (BM25 + Dense, $\alpha=0.5$)** | **1.0000** | **0.8952** | 0.9429 | 0.9714 | **1.0000** | 0.5714 | 0.4571 | 0.9621 | 0.9726 | 0.9893 |
+| **Dense + Cross-Encoder Rerank** | 0.9643 | 0.8810 | **0.9571** | **0.9857** | 0.9286 | **0.6905** | **0.5000** | **0.9665** | **0.9758** | 0.9831 |
 
 ### 4.2 Per-Query Breakdown Across All Models
 Below is the granular query-by-query breakdown from `outputs/retrieval_model_comparison.json`:
@@ -257,6 +257,54 @@ Below is the granular query-by-query breakdown from `outputs/retrieval_model_com
 - **Sentence-BERT Dense:** Top-1: `03-cross-encoder-bi-encoder-ranking-system` | $\text{RR} = 0.5$ (Target at #2)
 - **Hybrid ($\alpha=0.5$):** Top-1: `07-document-semantic-search-sentence-bert` | $\text{RR} = 1.0$
 - **Dense + Rerank:** Top-1: `07-document-semantic-search-sentence-bert` | $\text{RR} = 1.0$
+
+#### Query 9: *"Which project extracts biomedical and technical entities using fine-tuned RoBERTa?"*
+- **Ground Truth Target Document:** `08-named-entity-recognition-spacy-transformers`
+- **TF-IDF:** Top-1: `08-named-entity-recognition-spacy-transformers` | $\text{RR} = 1.0$
+- **BM25:** Top-1: `08-named-entity-recognition-spacy-transformers` | $\text{RR} = 1.0$
+- **Sentence-BERT Dense:** Top-1: `08-named-entity-recognition-spacy-transformers` | $\text{RR} = 1.0$
+- **Hybrid ($\alpha=0.5$):** Top-1: `08-named-entity-recognition-spacy-transformers` | $\text{RR} = 1.0$
+- **Dense + Rerank:** Top-1: `08-named-entity-recognition-spacy-transformers` | $\text{RR} = 1.0$
+
+#### Query 10: *"How does the enterprise RAG architecture mitigate hallucination and track citations?"*
+- **Ground Truth Target Document:** `09-retrieval-augmented-generation-langchain-rag`
+- **TF-IDF:** Top-1: `09-retrieval-augmented-generation-langchain-rag` | $\text{RR} = 1.0$
+- **BM25:** Top-1: `09-retrieval-augmented-generation-langchain-rag` | $\text{RR} = 1.0$
+- **Sentence-BERT Dense:** Top-1: `09-retrieval-augmented-generation-langchain-rag` | $\text{RR} = 1.0$
+- **Hybrid ($\alpha=0.5$):** Top-1: `09-retrieval-augmented-generation-langchain-rag` | $\text{RR} = 1.0$
+- **Dense + Rerank:** Top-1: `09-retrieval-augmented-generation-langchain-rag` | $\text{RR} = 1.0$
+
+#### Query 11: *"Which model handles speech-to-text recognition in noisy industrial environments?"*
+- **Ground Truth Target Document:** `10-speech-recognition-whisper-voice-assistant`
+- **TF-IDF:** Top-1: `10-speech-recognition-whisper-voice-assistant` | $\text{RR} = 1.0$
+- **BM25:** Top-1: `10-speech-recognition-whisper-voice-assistant` | $\text{RR} = 1.0$
+- **Sentence-BERT Dense:** Top-1: `10-speech-recognition-whisper-voice-assistant` | $\text{RR} = 1.0$
+- **Hybrid ($\alpha=0.5$):** Top-1: `10-speech-recognition-whisper-voice-assistant` | $\text{RR} = 1.0$
+- **Dense + Rerank:** Top-1: `10-speech-recognition-whisper-voice-assistant` | $\text{RR} = 1.0$
+
+#### Query 12: *"How are technical incident postmortems structured into knowledge graphs for root-cause analysis?"*
+- **Ground Truth Target Document:** `11-knowledge-graph-entity-linking-neo4j`
+- **TF-IDF:** Top-1: `11-knowledge-graph-entity-linking-neo4j` | $\text{RR} = 1.0$
+- **BM25:** Top-1: `11-knowledge-graph-entity-linking-neo4j` | $\text{RR} = 1.0$
+- **Sentence-BERT Dense:** Top-1: `11-knowledge-graph-entity-linking-neo4j` | $\text{RR} = 1.0$
+- **Hybrid ($\alpha=0.5$):** Top-1: `11-knowledge-graph-entity-linking-neo4j` | $\text{RR} = 1.0$
+- **Dense + Rerank:** Top-1: `11-knowledge-graph-entity-linking-neo4j` | $\text{RR} = 1.0$
+
+#### Query 13: *"What tools detect embedding drift and monitor latency in production NLP models?"*
+- **Ground Truth Target Document:** `12-mlops-model-monitoring-evidently-prometheus`
+- **TF-IDF:** Top-1: `12-mlops-model-monitoring-evidently-prometheus` | $\text{RR} = 1.0$
+- **BM25:** Top-1: `12-mlops-model-monitoring-evidently-prometheus` | $\text{RR} = 1.0$
+- **Sentence-BERT Dense:** Top-1: `12-mlops-model-monitoring-evidently-prometheus` | $\text{RR} = 1.0$
+- **Hybrid ($\alpha=0.5$):** Top-1: `12-mlops-model-monitoring-evidently-prometheus` | $\text{RR} = 1.0$
+- **Dense + Rerank:** Top-1: `12-mlops-model-monitoring-evidently-prometheus` | $\text{RR} = 1.0$
+
+#### Query 14: *"Which project optimizes LLM memory using QLoRA and 4-bit NormalFloat quantization?"*
+- **Ground Truth Target Document:** `13-parameter-efficient-peft-qlora-quantization`
+- **TF-IDF:** Top-1: `13-parameter-efficient-peft-qlora-quantization` | $\text{RR} = 1.0$
+- **BM25:** Top-1: `13-parameter-efficient-peft-qlora-quantization` | $\text{RR} = 1.0$
+- **Sentence-BERT Dense:** Top-1: `13-parameter-efficient-peft-qlora-quantization` | $\text{RR} = 1.0$
+- **Hybrid ($\alpha=0.5$):** Top-1: `13-parameter-efficient-peft-qlora-quantization` | $\text{RR} = 1.0$
+- **Dense + Rerank:** Top-1: `13-parameter-efficient-peft-qlora-quantization` | $\text{RR} = 1.0$
 
 ---
 

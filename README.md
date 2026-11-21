@@ -166,20 +166,20 @@ Evaluation is calculated strictly using labeled queries and relevance ground tru
 
 ## Empirical Benchmark Results
 
-Evaluated on the benchmark query suite ([outputs/retrieval_model_comparison.csv](outputs/retrieval_model_comparison.csv)):
+Evaluated across the 18-document, 52-chunk technical corpus using the 14 ground-truth evaluation queries ([outputs/retrieval_model_comparison.csv](outputs/retrieval_model_comparison.csv)):
 
-| Retrieval Method | MRR | Recall@1 | Recall@3 | Recall@5 | Precision@3 | nDCG@3 | nDCG@5 |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **TF-IDF (Lexical)** | 0.8750 | 0.6562 | 0.8958 | 0.9688 | 0.5000 | 0.8582 | 0.9124 |
-| **BM25 (Lexical)** | 0.8750 | 0.5729 | 0.8646 | 0.9688 | 0.4583 | 0.8505 | 0.9058 |
-| **Sentence-BERT (Dense)** | 0.9375 | 0.6979 | 0.9375 | 0.9688 | 0.5833 | 0.9169 | 0.9209 |
-| **Hybrid (BM25 + Dense, $\alpha=0.5$)** | **1.0000** | **0.8229** | 0.9062 | 0.9688 | 0.5000 | 0.9337 | 0.9637 |
-| **Dense + Cross-Encoder Rerank** | 0.9375 | 0.7917 | **0.9375** | **1.0000** | **0.5833** | **0.9413** | **0.9701** |
+| Retrieval Method | MRR | Recall@1 | Recall@3 | Recall@5 | Precision@1 | Precision@3 | Precision@5 | nDCG@3 | nDCG@5 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **TF-IDF (Lexical)** | 0.9286 | 0.8000 | 0.9333 | 0.9714 | 0.8571 | 0.5000 | 0.3429 | 0.9234 | 0.9460 |
+| **BM25 (Lexical)** | 0.9643 | 0.8238 | 0.9190 | 0.9714 | 0.9286 | 0.5000 | 0.3571 | 0.9146 | 0.9395 |
+| **Sentence-BERT (Dense)** | 0.9643 | 0.8238 | 0.9571 | 0.9714 | 0.9286 | 0.6905 | 0.4857 | 0.9525 | 0.9479 |
+| **Hybrid (BM25 + Dense, $\alpha=0.5$)** | **1.0000** | **0.8952** | 0.9429 | 0.9714 | **1.0000** | 0.5714 | 0.4571 | 0.9621 | 0.9726 |
+| **Dense + Cross-Encoder Rerank** | 0.9643 | 0.8810 | **0.9571** | **0.9857** | 0.9286 | **0.6905** | **0.5000** | **0.9665** | **0.9758** |
 
 ### Key Observations:
-1. **Hybrid Retrieval achieved a perfect 1.0000 MRR**: The combination of BM25 exact term matching and Sentence-BERT semantic proximity ensured that the true target document was ranked #1 for every single test query.
-2. **Cross-Encoder achieved the highest nDCG@5 (0.9701) and Recall@5 (1.0000)**: Reranking candidates using full cross-attention successfully elevated all relevant target documents into the top tier.
-3. **Lexical baselines lagged on conceptual queries**: BM25 and TF-IDF failed when users queried concepts without exact vocabulary overlap.
+1. **Hybrid Retrieval achieved a perfect 1.0000 MRR and 1.0000 Precision@1**: The combination of BM25 exact term matching and Sentence-BERT semantic proximity ensured that a relevant document was retrieved at Rank 1 for all 14 evaluation queries.
+2. **Cross-Encoder achieved the highest nDCG@5 (0.9758) and Precision@5 (0.5000)**: Reranking candidates using full token-to-token cross-attention successfully elevated relevant documents into the top positions.
+3. **Chunking Validation**: Section-aware chunking (180 words, 20–40 words overlap) retained the highest consistency (Precision@3 of 0.6905 vs 0.4167–0.5000 for sliding window methods).
 
 ---
 

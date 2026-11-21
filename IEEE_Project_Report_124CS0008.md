@@ -178,18 +178,18 @@ Query normalization (`src/query_analysis.py`) strips terminal query punctuation 
 +------------------------------+--------+----------+----------+----------+-------------+-------------+
 | Model / Paradigm             |  MRR   | Recall@1 | Recall@3 | Recall@5 | Precision@3 |   nDCG@5    |
 +------------------------------+--------+----------+----------+----------+-------------+-------------+
-| TF-IDF (Lexical)             | 0.8750 |  0.6562  |  0.8958  |  0.9688  |   0.5000    |   0.9124    |
-| BM25 (Lexical)               | 0.8750 |  0.5729  |  0.8646  |  0.9688  |   0.4583    |   0.9058    |
-| Sentence-BERT (Dense)        | 0.9375 |  0.6979  |  0.9375  |  0.9688  |   0.5833    |   0.9209    |
-| Hybrid (BM25 + Dense, a=0.5) | 1.0000 |  0.8229  |  0.9062  |  0.9688  |   0.5000    |   0.9637    |
-| Dense + Cross-Encoder Rerank | 0.9375 |  0.7917  |  0.9375  |  1.0000  |   0.5833    |   0.9701    |
+| TF-IDF (Lexical)             | 0.9286 |  0.8000  |  0.9333  |  0.9714  |   0.5000    |   0.9460    |
+| BM25 (Lexical)               | 0.9643 |  0.8238  |  0.9190  |  0.9714  |   0.5000    |   0.9395    |
+| Sentence-BERT (Dense)        | 0.9643 |  0.8238  |  0.9571  |  0.9714  |   0.6905    |   0.9479    |
+| Hybrid (BM25 + Dense, a=0.5) | 1.0000 |  0.8952  |  0.9429  |  0.9714  |   0.5714    |   0.9726    |
+| Dense + Cross-Encoder Rerank | 0.9643 |  0.8810  |  0.9571  |  0.9857  |   0.6905    |   0.9758    |
 +------------------------------+--------+----------+----------+----------+-------------+-------------+
 ```
 
 #### Key Empirical Observations:
-1. **Hybrid Retrieval Superiority**: Hybrid retrieval with $\alpha = 0.5$ attained **$\text{MRR} = 1.0000$** and **$\text{Recall@1} = 82.29\%$**. The fusion mechanism compensates for the dense bi-encoder's vulnerability to semantic competition by reinforcing exact lexical matches.
-2. **Cross-Encoder Ranking Fidelity**: Two-stage Cross-Encoder reranking achieved the highest overall ranking fidelity with an **$\text{nDCG@5}$ of $0.9701$** and **$\text{Recall@5} = 1.0000$**, successfully ordering candidate passages by token-level semantic relevance.
-3. **Lexical Baseline Bottleneck**: Pure BM25 achieved an MRR of $0.8750$ and Recall@1 of $57.29\%$, confirming that vocabulary mismatch impairs single-token inverted index matching on technical queries.
+1. **Hybrid Retrieval Superiority**: Hybrid retrieval with $\alpha = 0.5$ attained **$\text{MRR} = 1.0000$** and **$\text{Precision@1} = 100.0\%$** across all 14 technical queries. The fusion mechanism compensates for the dense bi-encoder's vulnerability to semantic competition by reinforcing exact lexical matches.
+2. **Cross-Encoder Ranking Fidelity**: Two-stage Cross-Encoder reranking achieved the highest overall ranking fidelity with an **$\text{nDCG@5}$ of $0.9758$**, **$\text{Recall@5} = 98.57\%$**, and **$\text{Precision@5} = 0.5000$**, successfully ordering candidate passages by token-level semantic relevance.
+3. **Lexical Baseline Bottleneck**: Pure BM25 achieved an MRR of $0.9643$ and Recall@3 of $91.90\%$, confirming that vocabulary mismatch still impairs single-token inverted index matching on technical queries without hybrid or reranker support.
 
 ### B. Factorial Chunking Grid Analysis
 We systematically evaluated 27 factorial combinations of chunking strategies, window sizes, and overlap parameters:

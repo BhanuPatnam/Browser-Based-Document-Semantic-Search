@@ -23,24 +23,24 @@
       },
       {
         "rank": 3,
+        "document_id": "12-mlops-model-monitoring-evidently-prometheus",
+        "project_name": "Production NLP Model Monitoring and Drift Detection (MLOps)",
+        "section_title": "Objective",
+        "similarity_score": 0.5164
+      },
+      {
+        "rank": 4,
         "document_id": "quality-analytics-semantic-search-use-case",
         "project_name": "Quality Analytics Knowledge Search Use Case",
         "section_title": "Business relevance",
         "similarity_score": 0.4971
       },
       {
-        "rank": 4,
+        "rank": 5,
         "document_id": "03-cross-encoder-bi-encoder-ranking-system",
         "project_name": "Cross-Encoder and Bi-Encoder Ranking System",
         "section_title": "Objective",
         "similarity_score": 0.4909
-      },
-      {
-        "rank": 5,
-        "document_id": "quality-analytics-semantic-search-use-case",
-        "project_name": "Quality Analytics Knowledge Search Use Case",
-        "section_title": "RAG connection",
-        "similarity_score": 0.4892
       }
     ],
     "probable_cause": "Semantic competition on evaluation terminology: Project 03 features dense discussions of evaluation metrics (MRR, nDCG, Precision@K, Cross-Encoder reranking scores), which causes the bi-encoder to assign it high cosine similarity alongside Project 07.",

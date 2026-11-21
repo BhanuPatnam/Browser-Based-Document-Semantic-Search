@@ -132,6 +132,128 @@
     "content_hash": "f23b54c48f1f17658378d7f535446fa3240190ea9ff8ae794241217fe9c2ccfd"
   },
   {
+    "document_id": "08-named-entity-recognition-spacy-transformers",
+    "project_name": "Named Entity Recognition and Token Classification with RoBERTa",
+    "project_category": "Transformer / NLP",
+    "source_file": "08-named-entity-recognition-spacy-transformers.md",
+    "document_type": "project_readme",
+    "text": "# Named Entity Recognition and Token Classification with RoBERTa\n\n## Objective\nBuild a high-throughput information extraction system for technical and scientific text. The pipeline extracts domain entities\u2014including software libraries, model architectures, hardware accelerators, and scientific metrics\u2014from unstructured technical reports and research literature.\n\n## Model and evaluation\nThe system fine-tunes a pretrained RoBERTa-base checkpoint with a token-classification head over CoNLL-formatted engineering datasets. Evaluation is measured using seqeval:\n- Token-level and entity-level Precision, Recall, and micro/macro F1 scores.\n- Entity boundary error analysis distinguishing full matches, partial overlaps, and label classification errors.\n- Out-of-vocabulary (OOV) entity generalization on unseen open-source software libraries.\n\n## Optimization and deployment\nTo satisfy low-latency production requirements, the model is exported to ONNX format with graph optimization and 8-bit dynamic quantization via ONNX Runtime. This reduces p95 inference latency by 68% with less than 0.5% drop in F1. An interactive demonstration is hosted on Hugging Face Spaces with FastAPI and spaCy visual entity renderers.",
+    "url_or_local_path": "https://github.com/BhanuPatnam/transformer-projects/tree/main/08-named-entity-recognition-spacy-transformers",
+    "tags": [
+      "ner",
+      "roberta",
+      "spacy",
+      "token-classification",
+      "conll",
+      "entity-linking",
+      "onnx"
+    ],
+    "created_from": "public synthetic portfolio documentation",
+    "content_hash": "5faf7d7ef738cedcd1851ce476cdf389e1dd8ad1b6c905263d6ce24f696ae0e0"
+  },
+  {
+    "document_id": "09-retrieval-augmented-generation-langchain-rag",
+    "project_name": "Enterprise Retrieval-Augmented Generation Architecture",
+    "project_category": "Generative AI / Information Retrieval",
+    "source_file": "09-retrieval-augmented-generation-langchain-rag.md",
+    "document_type": "architecture_spec",
+    "text": "# Enterprise Retrieval-Augmented Generation Architecture\n\n## Objective\nDesign and implement an enterprise-grade Retrieval-Augmented Generation (RAG) system for technical engineering manuals and standard operating procedures (SOPs). The goal is to provide accurate, grounded answers to complex multi-step queries while preventing factual hallucination.\n\n## Retrieval pipeline and indexing\nThe ingestion engine applies recursive character and AST-aware chunking with metadata preservation (file paths, section headings, version hashes). Chunks are indexed using a hybrid vector store:\n- Dense vector search powered by FAISS with Hierarchical Navigable Small World (HNSW) indexing.\n- Sparse keyword indexing using BM25 with exact token preservation.\n- Reciprocal Rank Fusion (RRF) with dynamic alpha score weighting to balance keyword matching and conceptual similarity.\n\n## Evaluation and governance\nRAG quality is systematically evaluated using Ragas and TruLens across four core dimensions:\n- Faithfulness (percentage of generated claims substantiated by retrieved passages).\n- Answer relevance (semantic alignment to query intent).\n- Context recall (proportion of required ground-truth evidence successfully retrieved).\n- Citation accuracy (verifiable passage provenance and character-level span attribution).\nDeployment utilizes Docker containers orchestrated via Kubernetes, with Redis caching frequently retrieved query embeddings.",
+    "url_or_local_path": "https://github.com/BhanuPatnam/generative-ai-systems/tree/main/09-enterprise-rag-langchain",
+    "tags": [
+      "rag",
+      "langchain",
+      "vector-database",
+      "faiss",
+      "llamaindex",
+      "hallucination-mitigation",
+      "citations"
+    ],
+    "created_from": "public synthetic portfolio documentation",
+    "content_hash": "84a3cdeb91e5f235a65b388bb443847e763d78b7c79787623868498ce0f9fef5"
+  },
+  {
+    "document_id": "10-speech-recognition-whisper-voice-assistant",
+    "project_name": "Speech Recognition and Edge Voice AI with Whisper",
+    "project_category": "Audio / NLP",
+    "source_file": "10-speech-recognition-whisper-voice-assistant.md",
+    "document_type": "model_card",
+    "text": "# Speech Recognition and Edge Voice AI with Whisper\n\n## Objective\nDeploy a robust automatic speech recognition (ASR) pipeline for voice-driven industrial operations and hands-free laboratory maintenance. The system transcribes spoken technical jargon, equipment part numbers, and error codes under noisy acoustic conditions.\n\n## Acoustic modeling and decoding\nThe system leverages OpenAI Whisper (base and small checkpoints) fine-tuned on specialized technical voice corpora. Key components include:\n- Audio feature extraction using 80-channel log-Mel filterbanks resampled at 16 kHz.\n- Voice Activity Detection (VAD) via Silero VAD to strip ambient background hum and compressor noise.\n- Temperature fallback and beam search decoding to minimize repetition loops and phantom hallucinated phrases during silent pauses.\n\n## Evaluation and edge deployment\nThe pipeline is evaluated on test recordings with synthetic industrial factory noise SNR ranges (0 dB to 20 dB):\n- Word Error Rate (WER) and Character Error Rate (CER) on domain-specific vocabulary.\n- Real-Time Factor (RTF) across CPU, CUDA, and Apple Silicon Metal Performance Shaders (MPS).\n- Memory-efficient edge deployment packaged via whisper.cpp for offline, air-gapped embedded device execution.",
+    "url_or_local_path": "https://github.com/BhanuPatnam/audio-nlp-projects/tree/main/10-speech-recognition-whisper",
+    "tags": [
+      "whisper",
+      "asr",
+      "speech-to-text",
+      "audio-processing",
+      "wer",
+      "voice-ai",
+      "edge-computing"
+    ],
+    "created_from": "public synthetic portfolio documentation",
+    "content_hash": "00264e97714d139c1242cafe679ccb908cfadad4a68c2c54608b268faaeb82d7"
+  },
+  {
+    "document_id": "11-knowledge-graph-entity-linking-neo4j",
+    "project_name": "Technical Knowledge Graph Construction and Entity Linking",
+    "project_category": "Knowledge Engineering / NLP",
+    "source_file": "11-knowledge-graph-entity-linking-neo4j.md",
+    "document_type": "engineering_guide",
+    "text": "# Technical Knowledge Graph Construction and Entity Linking\n\n## Objective\nConstruct a domain-specific knowledge graph from unstructured engineering incident postmortems, service bulletins, and maintenance logs. The graph enables multi-hop relational reasoning for root-cause analysis and automated failure mode identification.\n\n## Information extraction and graph modeling\nThe pipeline extracts semantic subject-predicate-object triples:\n- Open Information Extraction (OpenIE) and dependency parsing to extract causal chains (e.g., `Overheating -> Causes -> Thermal Throttling -> LeadsTo -> Packet Drop`).\n- Entity disambiguation and linking using dense Sentence-BERT cosine similarity against a curated engineering ontology.\n- Graph database storage in Neo4j with labeled property nodes (Components, FailureModes, CorrectiveActions) and directed relationship edges.\n\n## GraphRAG hybrid retrieval\nThe retrieval engine combines vector search with graph traversal algorithms:\n- Graph-Augmented Retrieval (GraphRAG) fetches neighboring subgraph neighborhoods for seed entities identified in user queries.\n- Cypher query synthesis converts natural language questions into structured graph database queries.\n- Evaluation tracks triple extraction F1, entity linking accuracy, and multi-hop query resolution rate for complex cross-system root cause investigations.",
+    "url_or_local_path": "https://github.com/BhanuPatnam/knowledge-graph-systems/tree/main/11-technical-knowledge-graph-neo4j",
+    "tags": [
+      "knowledge-graph",
+      "neo4j",
+      "entity-linking",
+      "cypher",
+      "triple-extraction",
+      "graph-rag",
+      "reasoning"
+    ],
+    "created_from": "public synthetic portfolio documentation",
+    "content_hash": "efb4ab2668fac50a75f93caed9b97df18778c2700254875d49d6aff056e45b5a"
+  },
+  {
+    "document_id": "12-mlops-model-monitoring-evidently-prometheus",
+    "project_name": "Production NLP Model Monitoring and Drift Detection (MLOps)",
+    "project_category": "MLOps / Software Engineering",
+    "source_file": "12-mlops-model-monitoring-evidently-prometheus.md",
+    "document_type": "deployment_guide",
+    "text": "# Production NLP Model Monitoring and Drift Detection (MLOps)\n\n## Objective\nEstablish a continuous observability and monitoring pipeline for production NLP and semantic search services. The infrastructure detects data drift, concept drift, semantic embedding drift, and latency anomalies before downstream user search experience degrades.\n\n## Drift detection and telemetry architecture\nThe monitoring engine processes live inference request-response payloads:\n- Embedding distribution drift detection using Evidently AI with Kolmogorov-Smirnov tests, Wasserstein distance, and Population Stability Index (PSI).\n- Vocabulary shift tracking to identify emerging terms, unknown tokens, and out-of-distribution domain queries.\n- Metric collection via Prometheus exporters tracking p50, p95, and p99 query latency, GPU VRAM saturation, and batch size utilization.\n\n## Production operations and incident response\nVisual monitoring dashboards are rendered in Grafana with automated alert webhooks dispatched to Slack and PagerDuty when drift metrics breach critical thresholds:\n- Automated canary rollback triggers if embedding drift exceeds PSI > 0.25 over a 24-hour sliding window.\n- Weekly automated retraining and index re-embedding pipelines executed via GitHub Actions and Argo Workflows.\n- Reproducible benchmark suites integrated directly into CI/CD regression testing.",
+    "url_or_local_path": "https://github.com/BhanuPatnam/mlops-nlp-systems/tree/main/12-nlp-model-monitoring-evidently",
+    "tags": [
+      "mlops",
+      "evidently-ai",
+      "drift-detection",
+      "prometheus",
+      "grafana",
+      "ci-cd",
+      "kubernetes",
+      "observability"
+    ],
+    "created_from": "public synthetic portfolio documentation",
+    "content_hash": "88cca955162a76dfa9d18f743a9d71f17215387b4c09a7c5b4b7920ba8459160"
+  },
+  {
+    "document_id": "13-parameter-efficient-peft-qlora-quantization",
+    "project_name": "High-Efficiency LLM Quantization and QLoRA Fine-Tuning",
+    "project_category": "Generative AI / Systems Engineering",
+    "source_file": "13-parameter-efficient-peft-qlora-quantization.md",
+    "document_type": "technical_report",
+    "text": "# High-Efficiency LLM Quantization and QLoRA Fine-Tuning\n\n## Objective\nBenchmark and optimize parameter-efficient fine-tuning (PEFT) and low-bit quantization strategies for serving large language models on edge and consumer-grade hardware. The project analyzes accuracy tradeoffs across 4-bit, 8-bit, and 16-bit precision regimes.\n\n## Quantization mechanics and fine-tuning\nThe training pipeline incorporates state-of-the-art memory reduction techniques:\n- 4-bit NormalFloat (NF4) quantization with double quantization and paged optimizers via bitsandbytes.\n- Low-Rank Adaptation (LoRA) target modules (q_proj, k_proj, v_proj, o_proj) with rank r=16 and scaling alpha=32.\n- High-throughput inference serving with vLLM utilizing PagedAttention to eliminate KV-cache memory fragmentation and enable continuous request batching.\n\n## Empirical performance and benchmarks\nComprehensive benchmarks on LLaMA-3 and Mistral architectures measure:\n- VRAM footprint reduction (from 14 GB in FP16 down to 4.8 GB in NF4 for a 7B checkpoint).\n- Perplexity degradation on Wikitext-2 and zero-shot accuracy across MMLU, GSM8K, and HumanEval.\n- Token generation throughput (tokens/second) and batch concurrency scaling under multi-tenant production load.",
+    "url_or_local_path": "https://github.com/BhanuPatnam/llm-systems-engineering/tree/main/13-peft-qlora-quantization",
+    "tags": [
+      "peft",
+      "qlora",
+      "bitsandbytes",
+      "quantization",
+      "gguf",
+      "vllm",
+      "deep-learning",
+      "systems-engineering"
+    ],
+    "created_from": "public synthetic portfolio documentation",
+    "content_hash": "3b36ab8faadc002ff34a32e2db2087df0a2a8d6823831dbd4b31ffd92798d82c"
+  },
+  {
     "document_id": "bilstm-emotion-detection",
     "project_name": "Emotion Detection with BiLSTM and Attention",
     "project_category": "RNN / NLP",

@@ -39,8 +39,7 @@ ERROR_ANALYSIS_JSON = OUTPUTS_DIR / "error_analysis.json"
 ERROR_ANALYSIS_MD = OUTPUTS_DIR / "error_analysis.md"
 
 st.set_page_config(
-    page_title="NLP Semantic & Hybrid Information Retrieval",
-    page_icon="🔍",
+    page_title="Semantic & Hybrid Information Retrieval System",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -145,7 +144,7 @@ all_doc_types = sorted(list({c.get("document_type", "") for c in chunks if c.get
 
 # ----------------- Sidebar -----------------
 with st.sidebar:
-    st.title("⚙️ IR Configuration")
+    st.title("IR Configuration")
 
     st.subheader("Retrieval Strategy")
     retrieval_method = st.selectbox(
@@ -241,7 +240,7 @@ with st.sidebar:
     st.caption("Developed by **Bhanu Patnam**")
 
 # ----------------- Main App -----------------
-st.title("🔍 Semantic & Hybrid Information Retrieval System")
+st.title("Semantic & Hybrid Information Retrieval System")
 st.markdown(
     "A comprehensive NLP evaluation platform comparing **Lexical Search (TF-IDF, BM25)**, "
     "**Dense Vector Search (Sentence-BERT)**, **Hybrid Fusion**, and **Two-Stage Cross-Encoder Reranking**."
@@ -249,11 +248,11 @@ st.markdown(
 
 tab_search, tab_comp, tab_exp, tab_corpus, tab_insights = st.tabs(
     [
-        "🔎 Search & Retrieval",
-        "📊 Model Comparison & Metrics",
-        "🔬 Chunking Experiments & Errors",
-        "📂 Document Corpus",
-        "💡 NLP Insights & Theory",
+        "Search & Retrieval",
+        "Model Comparison & Metrics",
+        "Chunking Experiments & Errors",
+        "Document Corpus",
+        "NLP Insights & Theory",
     ]
 )
 
@@ -269,14 +268,14 @@ with tab_search:
     with col_btn:
         st.write("")
         st.write("")
-        search_clicked = st.button("Search 🚀", use_container_width=True, type="primary")
+        search_clicked = st.button("Search", use_container_width=True, type="primary")
 
-    # Quick interactive benchmark query picker chips
-    with st.expander("⚡ Quick Benchmark Test Queries (Click any query to run)", expanded=False):
+    # Quick interactive benchmark query picker
+    with st.expander("Benchmark Test Queries (Select to Run)", expanded=False):
         q_cols = st.columns(2)
         for idx, sq in enumerate(sample_queries):
             target_col = q_cols[idx % 2]
-            if target_col.button(f"📌 {sq}", key=f"quick_btn_{idx}", use_container_width=True):
+            if target_col.button(sq, key=f"quick_btn_{idx}", use_container_width=True):
                 st.session_state["user_search_input"] = sq
                 st.rerun()
 
@@ -445,18 +444,18 @@ with tab_comp:
     st.divider()
     st.subheader("Interactive Query Benchmark Runner")
     st.markdown("Run all 14 ground-truth benchmark queries live across all 5 models to verify retrieval accuracy.")
-    if st.button("Run Live Benchmark Across All 5 Methods 🚀", type="primary"):
+    if st.button("Run Live Benchmark Across All 5 Methods", type="primary"):
         eval_queries = json.loads(EVAL_QUERIES_PATH.read_text(encoding="utf-8")) if EVAL_QUERIES_PATH.is_file() else []
         live_rows = []
         hits = {"TF-IDF": 0, "BM25": 0, "Dense": 0, "Hybrid": 0, "Rerank": 0}
 
         def check_hit(results: list[dict[str, Any]], targets: set[str]) -> str:
             if not results:
-                return "❌ No result"
+                return "[Miss] No result"
             top_doc = results[0]["document_id"]
             if top_doc in targets:
-                return f"✅ {top_doc}"
-            return f"❌ {top_doc}"
+                return f"[Hit] {top_doc}"
+            return f"[Miss] {top_doc}"
 
         with st.spinner(f"Evaluating {len(eval_queries)} benchmark queries across all 5 models..."):
             for q in eval_queries:
@@ -616,11 +615,11 @@ with tab_insights:
             """
             ```
             Entire Corpus (N chunks)
-                    │
-                    ▼  [Stage 1: Bi-Encoder (SBERT)]
+                    |
+                    v  [Stage 1: Bi-Encoder (SBERT)]
             Candidate Shortlist (Top 10)  (Fast: O(N) dot products)
-                    │
-                    ▼  [Stage 2: Cross-Encoder (Joint Transformer)]
+                    |
+                    v  [Stage 2: Cross-Encoder (Joint Transformer)]
             Reranked Final Top K  (Accurate: Full token-to-token cross-attention)
             ```
             - **Bi-Encoder**: Encodes $q$ and $d$ separately $\\rightarrow$ misses token-level cross-interaction.

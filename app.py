@@ -180,24 +180,62 @@ with st.sidebar:
 
     st.subheader("Filters & Tuning")
     top_k = st.slider("Top Results (K)", min_value=1, max_value=10, value=5, step=1)
-    min_score = st.slider("Min Score Threshold", min_value=0.0, max_value=1.0, value=0.10, step=0.05)
+    min_score = st.slider(
+        "Min Score Threshold",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.0,
+        step=0.05,
+        help="Set to 0.0 to display all top candidates without minimum threshold filtering.",
+    )
 
     selected_category = st.selectbox("Category Filter", options=["All"] + all_categories)
     selected_doc_type = st.selectbox("Document Type Filter", options=["All"] + all_doc_types)
 
     st.divider()
     st.subheader("Benchmark Test Queries")
-    sample_queries = [
-        "Which project uses Longformer for question answering?",
-        "Find projects using U-Net for image segmentation.",
-        "Which project uses a cross-encoder to rerank bi-encoder candidates?",
-        "Where did I deploy a browser model with GitHub Pages?",
-        "Which project evaluates summarization with BERTScore?",
-        "How can semantic search support quality analytics and root-cause knowledge?",
-        "Which project uses a bidirectional LSTM with attention?",
-        "What metrics evaluate this document semantic search engine?",
-    ]
-    selected_sample = st.selectbox("Select a benchmark query:", ["-- Select a Query --"] + sample_queries)
+
+    # Dynamically load official benchmark queries from evaluation_queries.json
+    sample_queries: list[str] = []
+    if EVAL_QUERIES_PATH.is_file():
+        try:
+            eval_q_data = json.loads(EVAL_QUERIES_PATH.read_text(encoding="utf-8"))
+            sample_queries = [str(q["query"]) for q in eval_q_data if "query" in q]
+        except Exception:
+            pass
+    if not sample_queries:
+        sample_queries = [
+            "Which projects are deployed on Hugging Face Spaces?",
+            "Find projects using U-Net for image segmentation.",
+            "Which project uses a cross-encoder to rerank bi-encoder candidates?",
+            "Where did I deploy a browser model with GitHub Pages?",
+            "Which project evaluates summarization with BERTScore?",
+            "How can semantic search support quality analytics and root-cause knowledge?",
+            "Which project uses a bidirectional LSTM with attention?",
+            "What metrics evaluate this document semantic search engine?",
+            "Which project extracts biomedical and technical entities using fine-tuned RoBERTa?",
+            "How does the enterprise RAG architecture mitigate hallucination and track citations?",
+            "Which model handles speech-to-text recognition in noisy industrial environments?",
+            "How are technical incident postmortems structured into knowledge graphs for root-cause analysis?",
+            "What tools detect embedding drift and monitor latency in production NLP models?",
+            "Which project optimizes LLM memory using QLoRA and 4-bit NormalFloat quantization?",
+        ]
+
+    if "user_search_input" not in st.session_state:
+        st.session_state["user_search_input"] = ""
+
+    def on_sample_query_select():
+        chosen = st.session_state.get("sidebar_benchmark_selector")
+        if chosen and chosen != "-- Select a Query --":
+            st.session_state["user_search_input"] = chosen
+
+    st.selectbox(
+        "Select a benchmark query:",
+        options=["-- Select a Query --"] + sample_queries,
+        key="sidebar_benchmark_selector",
+        on_change=on_sample_query_select,
+        help="Selecting a benchmark query immediately updates the search input and runs retrieval.",
+    )
 
     st.divider()
     st.caption("Developed by **Bhanu Patnam**")
@@ -221,15 +259,10 @@ tab_search, tab_comp, tab_exp, tab_corpus, tab_insights = st.tabs(
 
 # ----------------- Tab 1: Search & Retrieval -----------------
 with tab_search:
-    default_text = ""
-    if selected_sample != "-- Select a Query --":
-        default_text = selected_sample
-
     col_input, col_btn = st.columns([5, 1])
     with col_input:
         query_input = st.text_input(
             "Enter your technical search query:",
-            value=default_text,
             placeholder="e.g. Which project implements bi-encoder candidate retrieval with cross-encoder reranking?",
             key="user_search_input",
         )
@@ -237,6 +270,15 @@ with tab_search:
         st.write("")
         st.write("")
         search_clicked = st.button("Search 🚀", use_container_width=True, type="primary")
+
+    # Quick interactive benchmark query picker chips
+    with st.expander("⚡ Quick Benchmark Test Queries (Click any query to run)", expanded=False):
+        q_cols = st.columns(2)
+        for idx, sq in enumerate(sample_queries):
+            target_col = q_cols[idx % 2]
+            if target_col.button(f"📌 {sq}", key=f"quick_btn_{idx}", use_container_width=True):
+                st.session_state["user_search_input"] = sq
+                st.rerun()
 
     if query_input:
         cleaned_q = clean_query(query_input)
@@ -300,7 +342,10 @@ with tab_search:
         total_latency_ms = (time.perf_counter() - t_start) * 1000
 
         # Filtering threshold
-        filtered_results = [r for r in results if r["similarity_score"] >= min_score]
+        if min_score > 0.0:
+            filtered_results = [r for r in results if r["similarity_score"] >= min_score]
+        else:
+            filtered_results = results
 
         col_m1, col_m2, col_m3 = st.columns(3)
         col_m1.metric("Retrieved Passages", f"{len(filtered_results)} of {top_k}")
@@ -310,7 +355,18 @@ with tab_search:
         st.divider()
 
         if not filtered_results:
-            st.warning(f"No passages found matching threshold (>= {min_score:.2f}) and selected filters.")
+            filter_hints = []
+            if category_arg:
+                filter_hints.append(f"Category = '{category_arg}'")
+            if doc_type_arg:
+                filter_hints.append(f"Document Type = '{doc_type_arg}'")
+            if min_score > 0.0:
+                filter_hints.append(f"Min Score >= {min_score:.2f}")
+
+            msg = "No passages found matching the current query."
+            if filter_hints:
+                msg += f" (Active filters: {', '.join(filter_hints)}. Try setting Category and Document Type filters to 'All')."
+            st.warning(msg)
         else:
             for item in filtered_results:
                 score = float(item["similarity_score"])
@@ -388,33 +444,67 @@ with tab_comp:
 
     st.divider()
     st.subheader("Interactive Query Benchmark Runner")
-    if st.button("Run Live Benchmark Across All 5 Methods", type="secondary"):
+    st.markdown("Run all 14 ground-truth benchmark queries live across all 5 models to verify retrieval accuracy.")
+    if st.button("Run Live Benchmark Across All 5 Methods 🚀", type="primary"):
         eval_queries = json.loads(EVAL_QUERIES_PATH.read_text(encoding="utf-8")) if EVAL_QUERIES_PATH.is_file() else []
         live_rows = []
-        for q in eval_queries:
-            q_text = q["query"]
-            q_vec = bi_encoder.encode([q_text], normalize_embeddings=True, convert_to_numpy=True)[0]
-            target_ids = set(q.get("relevant_document_ids", []))
+        hits = {"TF-IDF": 0, "BM25": 0, "Dense": 0, "Hybrid": 0, "Rerank": 0}
 
-            res_tfidf = tfidf_retriever.search(q_text, top_k=3)
-            res_bm25 = bm25_retriever.search(q_text, top_k=3)
-            res_dense = search_with_vector(q_vec, chunks, matrix, top_k=3)
-            res_hybrid = hybrid_retriever.search(q_text, q_vec, top_k=3, alpha=0.5)
+        def check_hit(results: list[dict[str, Any]], targets: set[str]) -> str:
+            if not results:
+                return "❌ No result"
+            top_doc = results[0]["document_id"]
+            if top_doc in targets:
+                return f"✅ {top_doc}"
+            return f"❌ {top_doc}"
 
-            top10_dense = search_with_vector(q_vec, chunks, matrix, top_k=10)
-            res_rerank = cross_encoder.rerank(q_text, top10_dense, top_k=3) if cross_encoder else res_dense
+        with st.spinner(f"Evaluating {len(eval_queries)} benchmark queries across all 5 models..."):
+            for q in eval_queries:
+                q_text = q["query"]
+                q_vec = bi_encoder.encode([q_text], normalize_embeddings=True, convert_to_numpy=True)[0]
+                target_ids = set(q.get("relevant_document_ids", []))
 
-            live_rows.append(
-                {
-                    "Query": q_text,
-                    "Target Doc(s)": ", ".join(target_ids),
-                    "TF-IDF Top 1": res_tfidf[0]["document_id"] if res_tfidf else "-",
-                    "BM25 Top 1": res_bm25[0]["document_id"] if res_bm25 else "-",
-                    "Dense Top 1": res_dense[0]["document_id"] if res_dense else "-",
-                    "Hybrid Top 1": res_hybrid[0]["document_id"] if res_hybrid else "-",
-                    "Rerank Top 1": res_rerank[0]["document_id"] if res_rerank else "-",
-                }
-            )
+                res_tfidf = tfidf_retriever.search(q_text, top_k=3)
+                res_bm25 = bm25_retriever.search(q_text, top_k=3)
+                res_dense = search_with_vector(q_vec, chunks, matrix, top_k=3)
+                res_hybrid = hybrid_retriever.search(q_text, q_vec, top_k=3, alpha=0.5)
+
+                top10_dense = search_with_vector(q_vec, chunks, matrix, top_k=10)
+                res_rerank = cross_encoder.rerank(q_text, top10_dense, top_k=3) if cross_encoder else res_dense
+
+                if res_tfidf and res_tfidf[0]["document_id"] in target_ids:
+                    hits["TF-IDF"] += 1
+                if res_bm25 and res_bm25[0]["document_id"] in target_ids:
+                    hits["BM25"] += 1
+                if res_dense and res_dense[0]["document_id"] in target_ids:
+                    hits["Dense"] += 1
+                if res_hybrid and res_hybrid[0]["document_id"] in target_ids:
+                    hits["Hybrid"] += 1
+                if res_rerank and res_rerank[0]["document_id"] in target_ids:
+                    hits["Rerank"] += 1
+
+                live_rows.append(
+                    {
+                        "Query": q_text,
+                        "Target Document(s)": ", ".join(target_ids),
+                        "TF-IDF Top 1": check_hit(res_tfidf, target_ids),
+                        "BM25 Top 1": check_hit(res_bm25, target_ids),
+                        "Dense Top 1": check_hit(res_dense, target_ids),
+                        "Hybrid Top 1": check_hit(res_hybrid, target_ids),
+                        "Rerank Top 1": check_hit(res_rerank, target_ids),
+                    }
+                )
+
+        n_q = len(eval_queries)
+        if n_q > 0:
+            st.markdown("#### Live Top-1 Accuracy (Hit@1)")
+            c1, c2, c3, c4, c5 = st.columns(5)
+            c1.metric("TF-IDF Hit@1", f"{hits['TF-IDF']}/{n_q}", f"{hits['TF-IDF']/n_q*100:.1f}%")
+            c2.metric("BM25 Hit@1", f"{hits['BM25']}/{n_q}", f"{hits['BM25']/n_q*100:.1f}%")
+            c3.metric("Dense Hit@1", f"{hits['Dense']}/{n_q}", f"{hits['Dense']/n_q*100:.1f}%")
+            c4.metric("Hybrid Hit@1", f"{hits['Hybrid']}/{n_q}", f"{hits['Hybrid']/n_q*100:.1f}%")
+            c5.metric("Rerank Hit@1", f"{hits['Rerank']}/{n_q}", f"{hits['Rerank']/n_q*100:.1f}%")
+
         st.dataframe(pd.DataFrame(live_rows), use_container_width=True)
 
 # ----------------- Tab 3: Chunking Experiments & Errors -----------------
